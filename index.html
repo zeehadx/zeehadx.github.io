@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AHAMEDI ZEEHAD</title>
+
+<!-- FIXED FONT LINK -->
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+body{
+margin:0;
+background:#050507;
+color:#fff;
+font-family:'Syne',sans-serif;
+overflow-x:hidden;
+cursor:none;
+}
+
+/* CURSOR */
+#cursor{
+width:10px;height:10px;
+background:#00ff9f;
+position:fixed;
+border-radius:50%;
+pointer-events:none;
+z-index:999;
+}
+
+/* NAV */
+nav{
+position:fixed;
+width:100%;
+display:flex;
+justify-content:space-between;
+padding:20px;
+background:rgba(0,0,0,0.6);
+backdrop-filter:blur(10px);
+}
+nav h1{
+color:#00ff9f;
+letter-spacing:2px;
+}
+
+/* HERO */
+#hero{
+height:100vh;
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+text-align:center;
+}
+
+h1{
+font-family:'Bebas Neue';
+font-size:80px;
+letter-spacing:3px;
+}
+h1 span{color:#00ff9f}
+
+#typing{
+color:#aaa;
+margin-top:10px;
+font-size:18px;
+}
+
+/* BUTTON */
+.btn{
+margin-top:25px;
+padding:12px 28px;
+border:1px solid #00ff9f;
+color:#00ff9f;
+text-decoration:none;
+transition:0.3s;
+}
+.btn:hover{
+background:#00ff9f;
+color:black;
+box-shadow:0 0 20px #00ff9f55;
+}
+
+/* PROJECT */
+#projects{
+padding:80px 5%;
+text-align:center;
+}
+
+.card{
+border:1px solid #00ff9f33;
+padding:25px;
+margin:20px auto;
+max-width:400px;
+transition:0.3s;
+border-radius:8px;
+}
+.card:hover{
+box-shadow:0 0 25px #00ff9f55;
+transform:translateY(-6px);
+}
+
+/* CONTACT */
+#contact{
+padding:80px 5%;
+text-align:center;
+}
+
+#contact a{
+color:#00ff9f;
+text-decoration:none;
+}
+#contact a:hover{
+text-decoration:underline;
+}
+
+/* FOOTER */
+footer{
+text-align:center;
+padding:20px;
+color:#aaa;
+}
+footer span{color:#00ff9f;}
+</style>
+</head>
+
+<body>
+
+<div id="cursor"></div>
+
+<nav>
+<h1>ZEEHAD</h1>
+</nav>
+
+<section id="hero">
+<h1>AHAMEDI <span>ZEEHAD</span></h1>
+<div id="typing"></div>
+
+<a href="#contact" class="btn">Contact Me</a>
+</section>
+
+<section id="projects">
+<h2>🚀 Projects</h2>
+
+<div class="card">🔥 Fiverr Thumbnail Design</div>
+<div class="card">🎨 Logo Branding Project</div>
+
+</section>
+
+<section id="contact">
+<h2>📞 Contact</h2>
+
+<p>📧 gmjihadkhan@gmail.com</p>
+<p>📞 01756543934</p>
+
+<p>
+<a href="https://www.facebook.com/first.jihad" target="_blank">Facebook</a> |
+<a href="https://instagram.com/be_zeehaad" target="_blank">Instagram</a>
+</p>
+</section>
+
+<footer>
+Designed by <span>AHAMEDI ZEEHAD</span>
+</footer>
+
+<script>
+/* CURSOR */
+const cursor=document.getElementById("cursor");
+document.addEventListener("mousemove",e=>{
+cursor.style.left=e.clientX+"px";
+cursor.style.top=e.clientY+"px";
+});
+
+/* TYPING EFFECT */
+const text=["Creative Designer","Developer","Freelancer"];
+let i=0,j=0,current="",isDeleting=false;
+
+function type(){
+current=text[i];
+document.getElementById("typing").innerText=current.substring(0,j);
+
+if(!isDeleting && j<current.length) j++;
+else if(isDeleting && j>0) j--;
+else{
+isDeleting=!isDeleting;
+if(!isDeleting) i=(i+1)%text.length;
+}
+
+setTimeout(type,isDeleting?50:100);
+}
+type();
+</script>
+
+</body>
+</html>
