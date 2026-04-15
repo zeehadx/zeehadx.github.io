@@ -4,14 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>AHAMEDI ZEEHAD — Creative Designer & Developer</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Syne:wght@400;600;700;800&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet"> 
 <style>
   :root {
     --green: #00ff9f;
     --green-dim: rgba(0,255,159,0.15);
     --green-glow: rgba(0,255,159,0.4);
     --bg: #050507;
-    --bg2: #0a0a0f;
     --glass: rgba(255,255,255,0.03);
     --glass-border: rgba(255,255,255,0.08);
     --text: #e8e8f0;
@@ -23,7 +22,11 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background: var(--bg);
+    background: linear-gradient(rgba(5, 5, 7, 0.75), rgba(5, 5, 7, 0.75)), 
+                url('https://r.jina.ai/i/05e0031843be4444983963f9479e0a0e'); /* Star Cluster Background */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
     color: var(--text);
     font-family: 'Syne', sans-serif;
     overflow-x: hidden;
@@ -60,10 +63,6 @@
     opacity: 0.55;
   }
 
-  /* ── LAYOUT ── */
-  section { position: relative; z-index: 1; }
-
-  /* ── NAV ── */
   nav {
     position: fixed;
     top: 0; left: 0; right: 0;
@@ -76,46 +75,18 @@
     backdrop-filter: blur(18px);
     border-bottom: 1px solid var(--glass-border);
   }
-  .nav-logo {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 1.6rem;
-    letter-spacing: 0.18em;
-    color: var(--green);
-    text-shadow: 0 0 20px var(--green-glow);
-  }
+  .nav-logo { font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem; color: var(--green); text-shadow: 0 0 20px var(--green-glow); }
   .nav-links { display: flex; gap: 2.5rem; list-style: none; }
-  .nav-links a {
-    text-decoration: none;
-    font-size: 0.78rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    color: var(--muted);
-    transition: color 0.3s;
-    font-weight: 600;
-  }
+  .nav-links a { text-decoration: none; font-size: 0.78rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--muted); transition: color 0.3s; font-weight: 600; }
   .nav-links a:hover { color: var(--green); }
 
-  /* ── HERO ── */
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 7rem 5% 4rem;
-    gap: 6%;
-  }
-
-  .hero-left {
-    flex: 0 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.2rem;
-  }
+  #hero { min-height: 100vh; display: flex; align-items: center; padding: 7rem 5% 4rem; gap: 6%; position: relative; }
 
   .avatar-frame {
     width: 280px; height: 280px;
     border-radius: 50%;
     position: relative;
+    padding: 6px;
   }
   .avatar-frame::before {
     content: '';
@@ -125,393 +96,53 @@
     background: conic-gradient(var(--green), transparent 40%, var(--green) 60%, transparent 80%, var(--green));
     animation: spin 4s linear infinite;
   }
-  .avatar-frame::after {
-    content: '';
-    position: absolute;
-    inset: -12px;
-    border-radius: 50%;
-    background: transparent;
-    box-shadow: 0 0 40px var(--green-glow), 0 0 80px rgba(0,255,159,0.15);
-    animation: pulse-ring 3s ease-in-out infinite;
-  }
   @keyframes spin { to { transform: rotate(360deg); } }
-  @keyframes pulse-ring {
-    0%, 100% { opacity: 0.5; }
-    50% { opacity: 1; }
-  }
 
+  .avatar-inner {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    z-index: 2;
+    background: #000;
+    border: 2px solid var(--bg);
+  }
   .avatar-img {
     width: 100%; height: 100%;
-    border-radius: 50%;
     object-fit: cover;
-    position: relative;
-    z-index: 2;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(135deg, #111118, #1a1a24);
-    overflow: hidden;
-    font-size: 4.5rem;
-  }
-  .avatar-placeholder {
-    width: 100%; height: 100%;
-    border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, #1e2230, #0a0a10);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    z-index: 2;
-    overflow: hidden;
-  }
-  .avatar-placeholder svg {
-    width: 55%; height: 55%;
-    opacity: 0.25;
   }
 
-  .status-dot {
-    display: flex; align-items: center; gap: 8px;
-    font-size: 0.72rem;
-    letter-spacing: 0.15em;
-    text-transform: uppercase;
-    color: var(--muted);
-  }
-  .dot {
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--green);
-    box-shadow: 0 0 8px var(--green);
-    animation: blink 2s ease-in-out infinite;
-  }
+  .status-dot { display: flex; align-items: center; gap: 8px; font-size: 0.72rem; color: var(--muted); margin-top: 1rem; text-transform: uppercase; letter-spacing: 1px;}
+  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 8px var(--green); animation: blink 2s infinite; }
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
 
-  .hero-right { flex: 1; }
-
-  .hero-eyebrow {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.75rem;
-    letter-spacing: 0.25em;
-    color: var(--green);
-    text-transform: uppercase;
-    margin-bottom: 1rem;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.2s forwards;
-  }
-
-  .hero-name {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(4rem, 8vw, 7rem);
-    line-height: 0.95;
-    letter-spacing: 0.04em;
-    color: var(--text);
-    opacity: 0;
-    animation: fadeUp 0.8s 0.4s forwards;
-  }
+  .hero-name { font-family: 'Bebas Neue', sans-serif; font-size: clamp(4rem, 8vw, 7rem); line-height: 0.95; color: var(--text); }
   .hero-name span { color: var(--green); text-shadow: 0 0 30px var(--green-glow); }
 
-  .hero-tagline {
-    font-size: clamp(1rem, 2vw, 1.3rem);
-    color: var(--muted);
-    margin: 1.5rem 0 2.5rem;
-    font-weight: 400;
-    letter-spacing: 0.02em;
-    line-height: 1.9;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.6s forwards;
-    min-height: 3.8rem;
-  }
-  .typing-line { display: inline; }
-  .typing-small {
-    font-size: 0.82em;
-    font-family: 'JetBrains Mono', monospace;
-    letter-spacing: 0.05em;
-    color: rgba(232,232,240,0.35);
-  }
-  .typing-cursor {
-    display: inline-block;
-    color: var(--green);
-    font-weight: 300;
-    animation: blink-cur 0.8s step-end infinite;
-    font-family: 'JetBrains Mono', monospace;
-  }
+  .hero-tagline { font-size: 1.1rem; color: var(--muted); margin: 1.5rem 0; line-height: 1.8; min-height: 3.5rem;}
+  .typing-cursor { color: var(--green); animation: blink-cur 0.8s infinite; }
   @keyframes blink-cur { 0%,100%{opacity:1} 50%{opacity:0} }
-
-  .hero-buttons {
-    display: flex; gap: 1rem; flex-wrap: wrap;
-    opacity: 0;
-    animation: fadeUp 0.8s 0.8s forwards;
-  }
-
-  @keyframes fadeUp {
-    from { opacity:0; transform:translateY(24px); }
-    to   { opacity:1; transform:translateY(0); }
-  }
 
   .btn {
     padding: 0.85rem 2.2rem;
-    font-family: 'Syne', sans-serif;
     font-size: 0.8rem;
     font-weight: 700;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     text-decoration: none;
-    border: none;
-    border-radius: 2px;
-    cursor: none;
-    transition: all 0.3s ease;
-    position: relative;
-    overflow: hidden;
-  }
-  .btn::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--green);
-    transform: translateX(-100%);
-    transition: transform 0.3s ease;
-    z-index: -1;
-  }
-  .btn:hover::before { transform: translateX(0); }
-  .btn:hover { color: #050507; }
-
-  .btn-primary {
-    background: var(--green);
-    color: #050507;
-    box-shadow: 0 0 20px var(--green-glow), 0 0 40px rgba(0,255,159,0.1);
-  }
-  .btn-primary::before { background: #fff; }
-  .btn-primary:hover { box-shadow: 0 0 30px var(--green-glow), 0 0 60px rgba(0,255,159,0.2); color: #050507; }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--green);
     border: 1px solid var(--green);
-    box-shadow: inset 0 0 15px rgba(0,255,159,0.05);
-  }
-  .btn-outline:hover {
-    box-shadow: 0 0 20px var(--green-glow), inset 0 0 20px rgba(0,255,159,0.1);
-    color: #050507;
-  }
-
-  /* ── SECTION SHARED ── */
-  .section-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
     color: var(--green);
-    margin-bottom: 0.6rem;
-  }
-  .section-title {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2.5rem, 5vw, 4rem);
-    letter-spacing: 0.04em;
-    margin-bottom: 3rem;
-  }
-
-  /* ── DIVIDER ── */
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--green-glow), transparent);
-    margin: 0 5%;
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ── CONTACT SECTION ── */
-  #contact {
-    padding: 6rem 5%;
-    display: none;
-  }
-  #contact.visible { display: block; animation: sectionIn 0.6s ease forwards; }
-  @keyframes sectionIn {
-    from { opacity:0; transform:translateY(30px); }
-    to   { opacity:1; transform:translateY(0); }
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 1.5rem;
-    max-width: 900px;
-  }
-
-  .contact-card {
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    border-radius: 12px;
-    padding: 2rem;
-    backdrop-filter: blur(20px);
-    transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-    position: relative;
-    overflow: hidden;
-  }
-  .contact-card::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0; right: 0;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--green-glow), transparent);
-    opacity: 0;
-    transition: opacity 0.3s;
-  }
-  .contact-card:hover {
-    border-color: rgba(0,255,159,0.3);
-    box-shadow: 0 0 30px rgba(0,255,159,0.08), 0 8px 32px rgba(0,0,0,0.4);
-    transform: translateY(-4px);
-  }
-  .contact-card:hover::before { opacity: 1; }
-
-  .card-icon {
-    width: 44px; height: 44px;
+    transition: all 0.3s;
     background: var(--green-dim);
-    border: 1px solid rgba(0,255,159,0.2);
-    border-radius: 8px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: 1.2rem;
-    margin-bottom: 1rem;
+    display: inline-block;
   }
-  .card-label {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--green);
-    margin-bottom: 0.4rem;
-  }
-  .card-value {
-    font-size: 1rem;
-    font-weight: 600;
-    color: var(--text);
-    word-break: break-all;
-  }
-  .card-value a {
-    color: inherit;
-    text-decoration: none;
-    transition: color 0.2s;
-  }
-  .card-value a:hover { color: var(--green); }
+  .btn:hover { background: var(--green); color: #000; box-shadow: 0 0 20px var(--green-glow); }
 
-  .social-links { display: flex; gap: 0.8rem; margin-top: 0.8rem; flex-wrap: wrap; }
-  .social-link {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    font-size: 0.78rem;
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    color: var(--muted);
-    text-decoration: none;
-    padding: 0.45rem 0.9rem;
-    border: 1px solid var(--glass-border);
-    border-radius: 4px;
-    transition: all 0.25s;
-    cursor: none;
-  }
-  .social-link:hover {
-    color: var(--green);
-    border-color: rgba(0,255,159,0.4);
-    box-shadow: 0 0 12px rgba(0,255,159,0.1);
-    background: var(--green-dim);
-  }
+  section { padding: 6rem 5%; position: relative; z-index: 1; }
+  .reveal { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ── PROJECTS SECTION ── */
-  #projects {
-    padding: 6rem 5%;
-  }
-
-  .coming-soon-wrap {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 320px;
-    border: 1px dashed rgba(0,255,159,0.2);
-    border-radius: 16px;
-    background: var(--glass);
-    backdrop-filter: blur(20px);
-    gap: 1.5rem;
-    position: relative;
-    overflow: hidden;
-    max-width: 700px;
-  }
-  .coming-soon-wrap::before {
-    content: '';
-    position: absolute;
-    width: 300px; height: 300px;
-    border-radius: 50%;
-    background: radial-gradient(circle, rgba(0,255,159,0.06) 0%, transparent 70%);
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    animation: breathe 4s ease-in-out infinite;
-  }
-  @keyframes breathe {
-    0%,100% { transform: translate(-50%,-50%) scale(1); opacity:0.5; }
-    50% { transform: translate(-50%,-50%) scale(1.4); opacity:1; }
-  }
-
-  .cs-badge {
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--green);
-    background: var(--green-dim);
-    border: 1px solid rgba(0,255,159,0.25);
-    padding: 0.4rem 1rem;
-    border-radius: 20px;
-  }
-
-  .cs-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: clamp(2rem, 5vw, 3.5rem);
-    letter-spacing: 0.1em;
-    color: var(--text);
-    text-align: center;
-  }
-  .cs-text span { color: var(--green); }
-
-  .cs-sub {
-    font-size: 0.85rem;
-    color: var(--muted);
-    letter-spacing: 0.05em;
-    text-align: center;
-    max-width: 340px;
-    line-height: 1.7;
-  }
-
-  /* ── FOOTER ── */
-  footer {
-    text-align: center;
-    padding: 3rem 5%;
-    font-family: 'JetBrains Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.15em;
-    color: var(--muted);
-    position: relative;
-    z-index: 1;
-  }
-  footer span { color: var(--green); }
-
-  /* ── SCROLL REVEAL ── */
-  .reveal {
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  /* ── MOBILE ── */
-  @media (max-width: 768px) {
-    #hero { flex-direction: column; text-align: center; padding: 6rem 5% 4rem; }
-    .avatar-frame { width: 200px; height: 200px; }
-    .hero-buttons { justify-content: center; }
-    .contact-grid { grid-template-columns: 1fr; }
-    nav { padding: 1rem 5%; }
-    .nav-links { gap: 1.5rem; }
-    .nav-links a { font-size: 0.7rem; }
-  }
+  .divider { height: 1px; background: linear-gradient(90deg, transparent, var(--green-glow), transparent); margin: 0 5%; }
 </style>
 </head>
 <body>
@@ -520,100 +151,62 @@
 <div id="cursor"></div>
 <div id="cursor-ring"></div>
 
-<!-- NAV -->
 <nav>
   <div class="nav-logo">AZ</div>
   <ul class="nav-links">
     <li><a href="#hero">Home</a></li>
-    <li><a href="#contact-anchor" onclick="showContact()">Contact</a></li>
+    <li><a href="#contact">Contact</a></li>
     <li><a href="#projects">Projects</a></li>
   </ul>
 </nav>
 
-<!-- HERO -->
 <section id="hero">
   <div class="hero-left">
     <div class="avatar-frame">
-      <div class="avatar-placeholder">
-        <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <circle cx="50" cy="36" r="18" fill="#00ff9f"/>
-          <ellipse cx="50" cy="85" rx="32" ry="22" fill="#00ff9f"/>
-        </svg>
+      <div class="avatar-inner">
+        <img src="https://r.jina.ai/i/6168e928f6d649479b1875154388e6e5" alt="Ahamedi Zeehad" class="avatar-img">
       </div>
     </div>
     <div class="status-dot">
-      <div class="dot"></div>
-      Available for work
+      <div class="dot"></div> Available for work
     </div>
   </div>
 
   <div class="hero-right">
     <h1 class="hero-name">AHAMEDI<br><span>ZEEHAD</span></h1>
     <p class="hero-tagline">
-      <span id="typing-line1" class="typing-line"></span><br>
-      <span id="typing-line2" class="typing-small"></span><span class="typing-cursor">|</span>
+      <span id="type-text"></span><span class="typing-cursor">|</span>
     </p>
-    <div class="hero-buttons">
-      <a class="btn btn-primary" href="#contact-anchor" onclick="showContact(); return false;">Contact</a>
-      <a class="btn btn-outline" href="#projects">See Projects</a>
-    </div>
+    <a href="#contact" class="btn">Get In Touch</a>
   </div>
 </section>
 
 <div class="divider"></div>
 
-<!-- CONTACT -->
-<div id="contact-anchor"></div>
-<section id="contact">
-  <div class="reveal">
-    <p class="section-label">// get in touch</p>
-    <h2 class="section-title">Contact</h2>
+<section id="projects" class="reveal">
+  <h2 style="font-family: 'Bebas Neue'; font-size: 3.5rem; margin-bottom: 2rem;">Projects</h2>
+  <div style="padding: 4rem; border: 1px dashed var(--green-dim); border-radius: 12px; text-align: center; background: var(--glass);">
+    <p style="font-family: 'JetBrains Mono'; color: var(--green);">[SYSTEM STATUS: BUILDING...]</p>
+    <h3 style="margin: 1rem 0;">Something extraordinary is coming soon.</h3>
   </div>
-  <div class="contact-grid">
-    <div class="contact-card reveal">
-      <div class="card-icon">👤</div>
-      <p class="card-label">Full Name</p>
-      <p class="card-value">AHMEDI ZEEHAD</p>
+</section>
+
+<section id="contact" class="reveal">
+  <h2 style="font-family: 'Bebas Neue'; font-size: 3.5rem; margin-bottom: 2rem;">Contact</h2>
+  <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem;">
+    <div style="background: var(--glass); padding: 2rem; border: 1px solid var(--glass-border);">
+      <p style="color: var(--green); font-size: 0.7rem; font-family: 'JetBrains Mono';">EMAIL</p>
+      <p>gmjihadkhan@gmail.com</p>
     </div>
-    <div class="contact-card reveal" style="transition-delay:0.1s">
-      <div class="card-icon">✉️</div>
-      <p class="card-label">Email</p>
-      <p class="card-value"><a href="mailto:gmjihadkhan@gmail.com">gmjihadkhan@gmail.com</a></p>
-    </div>
-    <div class="contact-card reveal" style="transition-delay:0.2s">
-      <div class="card-icon">📞</div>
-      <p class="card-label">Phone</p>
-      <p class="card-value"><a href="tel:+8801756543934">+880 1756 543934</a></p>
-    </div>
-    <div class="contact-card reveal" style="transition-delay:0.3s">
-      <div class="card-icon">🔗</div>
-      <p class="card-label">Social Links</p>
-      <div class="social-links">
-        <a class="social-link" href="https://www.facebook.com/first.jihad" target="_blank">f Facebook</a>
-        <a class="social-link" href="https://www.instagram.com/be_zeehaad" target="_blank">◉ Instagram</a>
-        <a class="social-link" href="#" target="_blank">in LinkedIn</a>
-      </div>
+    <div style="background: var(--glass); padding: 2rem; border: 1px solid var(--glass-border);">
+      <p style="color: var(--green); font-size: 0.7rem; font-family: 'JetBrains Mono';">PHONE</p>
+      <p>+880 1756 543934</p>
     </div>
   </div>
 </section>
 
-<div class="divider" style="margin-top:0"></div>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="reveal">
-    <h2 class="section-title">Projects</h2>
-  </div>
-  <div class="coming-soon-wrap reveal">
-    <span class="cs-badge">In Progress</span>
-    <p class="cs-text">👉 Coming <span>Very</span> Soon</p>
-    <p class="cs-sub">Something extraordinary is being built. Check back soon for a showcase of real work.</p>
-  </div>
-</section>
-
-<!-- FOOTER -->
-<footer>
-  Designed &amp; Built by <span>AHAMEDI ZEEHAD</span> — &copy; 2025 — All rights reserved
+<footer style="text-align: center; padding: 4rem; opacity: 0.5; font-family: 'JetBrains Mono'; font-size: 0.7rem;">
+  © 2026 AHAMEDI ZEEHAD - ALL RIGHTS RESERVED
 </footer>
 
 <script>
@@ -623,128 +216,55 @@ const ring = document.getElementById('cursor-ring');
 let mx = 0, my = 0, rx = 0, ry = 0;
 document.addEventListener('mousemove', e => {
   mx = e.clientX; my = e.clientY;
-  cur.style.left = (mx - 5) + 'px';
-  cur.style.top  = (my - 5) + 'px';
+  cur.style.left = mx + 'px'; cur.style.top = my + 'px';
 });
 (function animRing() {
-  rx += (mx - rx - 18) * 0.15;
-  ry += (my - ry - 18) * 0.15;
-  ring.style.left = rx + 'px';
-  ring.style.top  = ry + 'px';
+  rx += (mx - rx - 18) * 0.15; ry += (my - ry - 18) * 0.15;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
   requestAnimationFrame(animRing);
 })();
-document.querySelectorAll('a,button,.btn,.social-link,.contact-card').forEach(el => {
-  el.addEventListener('mouseenter', () => { cur.style.transform='scale(2.5)'; ring.style.transform='scale(1.4)'; ring.style.borderColor='rgba(0,255,159,0.7)'; });
-  el.addEventListener('mouseleave', () => { cur.style.transform='scale(1)'; ring.style.transform='scale(1)'; ring.style.borderColor='rgba(0,255,159,0.4)'; });
-});
 
 /* ── SMOKE ── */
 const canvas = document.getElementById('smoke-canvas');
 const ctx = canvas.getContext('2d');
 let W, H;
 function resize() { W = canvas.width = window.innerWidth; H = canvas.height = window.innerHeight; }
-resize();
-window.addEventListener('resize', resize);
-
-class Particle {
+resize(); window.addEventListener('resize', resize);
+class P {
   constructor() { this.reset(); }
   reset() {
-    this.x = Math.random() * W;
-    this.y = H + 80;
-    this.vx = (Math.random() - 0.5) * 0.4;
-    this.vy = -(Math.random() * 0.6 + 0.2);
-    this.life = 0;
-    this.maxLife = 280 + Math.random() * 200;
-    this.r = 60 + Math.random() * 120;
-    this.spin = (Math.random() - 0.5) * 0.004;
-    this.angle = Math.random() * Math.PI * 2;
-    this.green = Math.random() > 0.75;
+    this.x = Math.random()*W; this.y = H+80; this.vy = -(Math.random()*0.5+0.2);
+    this.life = 0; this.maxLife = 300+Math.random()*200; this.r = 80+Math.random()*100;
   }
-  update() {
-    this.x += this.vx + Math.sin(this.life * 0.012) * 0.3;
-    this.y += this.vy;
-    this.angle += this.spin;
-    this.life++;
-    if (this.life > this.maxLife) this.reset();
-  }
+  update() { this.y += this.vy; this.life++; if(this.life > this.maxLife) this.reset(); }
   draw() {
-    const t = this.life / this.maxLife;
-    const a = Math.sin(t * Math.PI) * (this.green ? 0.04 : 0.03);
-    const grd = ctx.createRadialGradient(this.x, this.y, 0, this.x, this.y, this.r);
-    if (this.green) {
-      grd.addColorStop(0, `rgba(0,255,159,${a * 1.4})`);
-      grd.addColorStop(1, 'rgba(0,255,159,0)');
-    } else {
-      grd.addColorStop(0, `rgba(180,200,220,${a})`);
-      grd.addColorStop(1, 'rgba(100,120,160,0)');
-    }
-    ctx.save();
-    ctx.translate(this.x, this.y);
-    ctx.rotate(this.angle);
-    ctx.fillStyle = grd;
     ctx.beginPath();
-    ctx.ellipse(0, 0, this.r, this.r * 0.7, 0, 0, Math.PI * 2);
+    const a = Math.sin((this.life/this.maxLife)*Math.PI)*0.03;
+    ctx.fillStyle = `rgba(0, 255, 159, ${a})`;
+    ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
     ctx.fill();
-    ctx.restore();
   }
 }
+const ps = Array.from({length: 40}, () => new P());
+function anim() { ctx.clearRect(0,0,W,H); ps.forEach(p=>{p.update();p.draw();}); requestAnimationFrame(anim); }
+anim();
 
-const particles = Array.from({length: 55}, () => {
-  const p = new Particle();
-  p.life = Math.floor(Math.random() * p.maxLife);
-  return p;
-});
-
-function animate() {
-  ctx.clearRect(0, 0, W, H);
-  particles.forEach(p => { p.update(); p.draw(); });
-  requestAnimationFrame(animate);
-}
-animate();
-
-/* ── CONTACT TOGGLE ── */
-function showContact() {
-  const c = document.getElementById('contact');
-  if (!c.classList.contains('visible')) {
-    c.classList.add('visible');
-    setTimeout(() => {
-      c.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      c.querySelectorAll('.reveal').forEach((el,i) => {
-        setTimeout(() => el.classList.add('visible'), i * 120);
-      });
-    }, 80);
-  } else {
-    c.scrollIntoView({ behavior: 'smooth', block: 'start' });
+/* ── TYPING ── */
+const text = "Creative Designer & Developer. Crafting digital experiences that leave a mark.";
+let idx = 0;
+function type() {
+  if(idx < text.length) {
+    document.getElementById('type-text').textContent += text.charAt(idx);
+    idx++; setTimeout(type, 50);
   }
 }
+setTimeout(type, 1000);
 
-/* ── SCROLL REVEAL ── */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
-}, { threshold: 0.12 });
-
-document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
-
-/* ── TYPING EFFECT ── */
-const line1 = "Creative Designer & Developer";
-const line2 = "Crafting digital experiences that leave a mark.";
-const el1 = document.getElementById('typing-line1');
-const el2 = document.getElementById('typing-line2');
-let i = 0, phase = 1;
-function typeNext() {
-  if (phase === 1) {
-    if (i <= line1.length) {
-      el1.textContent = line1.slice(0, i++);
-      setTimeout(typeNext, i === line1.length + 1 ? 600 : 55);
-    } else { phase = 2; i = 0; setTimeout(typeNext, 60); }
-  } else {
-    if (i <= line2.length) {
-      el2.textContent = line2.slice(0, i++);
-      setTimeout(typeNext, 45);
-    }
-  }
-}
-setTimeout(typeNext, 1400);
+/* ── REVEAL ── */
+const obs = new IntersectionObserver((es) => {
+  es.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible'); });
+}, {threshold: 0.1});
+document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
 </script>
 </body>
 </html>
