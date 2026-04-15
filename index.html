@@ -33,8 +33,7 @@
   /* ── CUSTOM CURSOR ── */
   #cursor {
     width: 10px; height: 10px;
-    background:linear-gradient(rgba(5, 5, 7, 0.7), rgba(5, 5, 7, 0.7)), 
-                url('https://r.jina.ai/i/05e0031843be4444983963f9479e0a0e'); /* Star Cluster Background */
+    background: var(--green);
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
@@ -141,62 +140,38 @@
     50% { opacity: 1; }
   }
 
- /* Avatar Container */
-.avatar {
-  width: 220px;
-  height: 220px;
-  position: relative;
-  border-radius: 50%;
-}
+  .avatar-img {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #111118, #1a1a24);
+    overflow: hidden;
+    font-size: 4.5rem;
+  }
+  .avatar-placeholder {
+    width: 100%; height: 100%;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #1e2230, #0a0a10);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    z-index: 2;
+    overflow: hidden;
+  }
+  .avatar-placeholder svg {
+    width: 55%; height: 55%;
+    opacity: 0.25;
+  }
 
-/* Glowing Ring */
-.avatar::before {
-  content: "";
-  position: absolute;
-  inset: -5px;
-  border-radius: 50%;
-  background: linear-gradient(45deg, orange, red, orange);
-  filter: blur(15px);
-  opacity: 0.7;
-  animation: glow 3s linear infinite;
-  z-index: 0;
-}
-
-/* Inner Background */
-.avatar::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  background: #0a0a10;
-  z-index: 1;
-}
-
-/* Image */
-.avatar img {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
-  position: relative;
-  z-index: 2;
-  transition: 0.4s;
-}
-
-/* Hover Effect */
-.avatar:hover img {
-  transform: scale(1.1) rotate(2deg);
-}
-
-/* Animation */
-@keyframes glow {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-  .status-dot 
-  {
+  .status-dot {
     display: flex; align-items: center; gap: 8px;
-    
-  font-size: 0.72rem;
+    font-size: 0.72rem;
     letter-spacing: 0.15em;
     text-transform: uppercase;
     color: var(--muted);
@@ -772,4 +747,4 @@ function typeNext() {
 setTimeout(typeNext, 1400);
 </script>
 </body>
-</html>  1st pic ta profile pic dibo 2nd pic ta websit backgrund
+</html>  
