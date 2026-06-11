@@ -1,0 +1,1276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CreatorHub - Digital Products Store</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --dark-bg: #0a0a0f;
+            --dark-secondary: #1a1a2e;
+            --neon-blue: #00d4ff;
+            --neon-purple: #d946ef;
+            --neon-pink: #ec4899;
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0b0;
+            --border-color: #2a2a3e;
+        }
+
+        body {
+            background-color: var(--dark-bg);
+            color: var(--text-primary);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            overflow-x: hidden;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideOutRight {
+            from {
+                transform: translateX(0);
+                opacity: 1;
+            }
+            to {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+
+        @keyframes glow {
+            0%, 100% {
+                box-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+            }
+            50% {
+                box-shadow: 0 0 20px rgba(217, 70, 239, 0.6);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-10px);
+            }
+        }
+
+        @keyframes countUp {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes shimmer {
+            0% {
+                background-position: -1000px 0;
+            }
+            100% {
+                background-position: 1000px 0;
+            }
+        }
+
+        .animate-fade-in {
+            animation: fadeInUp 0.6s ease-out forwards;
+        }
+
+        .animate-slide-in {
+            animation: slideInRight 0.3s ease-out forwards;
+        }
+
+        .animate-slide-out {
+            animation: slideOutRight 0.3s ease-out forwards;
+        }
+
+        .animate-glow {
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .animate-float {
+            animation: float 3s ease-in-out infinite;
+        }
+
+        /* Gradient backgrounds */
+        .gradient-text {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .gradient-border {
+            position: relative;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            padding: 2px;
+            border-radius: 12px;
+        }
+
+        .gradient-border > * {
+            background: var(--dark-secondary);
+            border-radius: 10px;
+        }
+
+        /* Glass morphism */
+        .glass {
+            background: rgba(26, 26, 46, 0.4);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 212, 255, 0.1);
+        }
+
+        /* Buttons */
+        .btn-primary {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            padding: 12px 28px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.1);
+            transition: left 0.3s ease;
+        }
+
+        .btn-primary:hover::before {
+            left: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn-primary:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid var(--neon-blue);
+            color: var(--neon-blue);
+            padding: 10px 24px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(0, 212, 255, 0.1);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Cards */
+        .product-card {
+            background: var(--dark-secondary);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+        }
+
+        .product-card:hover {
+            border-color: var(--neon-blue);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            transform: translateY(-8px);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(217, 70, 239, 0.1));
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-image {
+            transition: transform 0.3s ease;
+        }
+
+        .badge {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-bestseller {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+        }
+
+        /* Toast notifications */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            color: white;
+            padding: 16px 24px;
+            border-radius: 8px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+            animation: slideInRight 0.3s ease-out;
+            z-index: 1000;
+            max-width: 350px;
+            word-wrap: break-word;
+        }
+
+        .toast.remove {
+            animation: slideOutRight 0.3s ease-out forwards;
+        }
+
+        /* Cart sidebar */
+        .cart-sidebar {
+            position: fixed;
+            right: 0;
+            top: 0;
+            width: 100%;
+            max-width: 400px;
+            height: 100vh;
+            background: var(--dark-secondary);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            border-left: 1px solid var(--border-color);
+        }
+
+        .cart-sidebar.hidden {
+            display: none;
+        }
+
+        /* Modal */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 998;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-overlay.active {
+            display: flex;
+            animation: fadeInUp 0.3s ease-out;
+        }
+
+        .modal {
+            background: var(--dark-secondary);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            max-width: 500px;
+            width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 32px;
+        }
+
+        .form-input {
+            width: 100%;
+            background: var(--dark-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 12px 16px;
+            border-radius: 8px;
+            margin-bottom: 16px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-secondary);
+        }
+
+        /* Scrollbar styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-bg);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(135deg, var(--neon-purple), var(--neon-pink));
+        }
+
+        /* Stats counter */
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Search input */
+        .search-input {
+            background: var(--dark-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 10px 16px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 15px rgba(0, 212, 255, 0.2);
+        }
+
+        /* Category filter */
+        .category-filter {
+            background: var(--dark-secondary);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .category-filter:hover {
+            border-color: var(--neon-blue);
+        }
+
+        .category-filter.active {
+            background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple));
+            border-color: transparent;
+            color: white;
+        }
+
+        /* Icon badges */
+        .icon-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: linear-gradient(135deg, var(--neon-pink), var(--neon-purple));
+            color: white;
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .cart-sidebar {
+                max-width: 100%;
+            }
+
+            .stat-number {
+                font-size: 2rem;
+            }
+
+            .gradient-text {
+                font-size: 1.875rem;
+            }
+        }
+
+        /* Loading animation */
+        .loading {
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--neon-blue);
+            animation: float 1s ease-in-out infinite;
+            margin: 0 2px;
+        }
+
+        /* Stagger animation for products */
+        @for $i from 1 through 10 {
+            .product-card:nth-child($i) {
+                animation: fadeInUp 0.6s ease-out ($i * 0.1s) forwards;
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="sticky top-0 z-50 glass border-b border-blue-900/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-16">
+                <!-- Logo -->
+                <div class="flex items-center gap-2 cursor-pointer" onclick="scrollToTop()">
+                    <i class="fas fa-rocket text-2xl gradient-text"></i>
+                    <span class="text-xl font-bold gradient-text hidden sm:inline">CreatorHub</span>
+                </div>
+
+                <!-- Search Bar (hidden on mobile) -->
+                <div class="hidden md:flex flex-1 max-w-xs mx-8">
+                    <div class="w-full relative">
+                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
+                        <input 
+                            type="text" 
+                            placeholder="Search products..." 
+                            class="search-input w-full pl-10 pr-4 py-2"
+                            id="searchInput"
+                            onkeyup="filterProducts()"
+                        >
+                    </div>
+                </div>
+
+                <!-- Right Icons -->
+                <div class="flex items-center gap-4">
+                    <!-- Wishlist -->
+                    <button class="relative cursor-pointer hover:scale-110 transition" onclick="toggleWishlist()">
+                        <i class="fas fa-heart text-xl text-gray-400 hover:text-pink-500 transition"></i>
+                        <div class="icon-badge" id="wishlistBadge" style="display: none;">0</div>
+                    </button>
+
+                    <!-- Cart -->
+                    <button class="relative cursor-pointer hover:scale-110 transition" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart text-xl text-gray-400 hover:text-blue-400 transition"></i>
+                        <div class="icon-badge" id="cartBadge" style="display: none;">0</div>
+                    </button>
+
+                    <!-- Mobile Menu -->
+                    <button class="md:hidden text-xl cursor-pointer" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen bg-gradient-to-br from-blue-900/20 via-dark-bg to-purple-900/20 flex items-center overflow-hidden">
+        <!-- Animated background elements -->
+        <div class="absolute top-20 left-10 w-72 h-72 bg-blue-500/10 rounded-full filter blur-3xl animate-pulse"></div>
+        <div class="absolute bottom-20 right-10 w-72 h-72 bg-purple-500/10 rounded-full filter blur-3xl animate-pulse"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 z-10 py-20">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <!-- Left content -->
+                <div class="animate-fade-in">
+                    <h1 class="text-4xl md:text-6xl font-bold mb-6 gradient-text leading-tight">
+                        Create Faster.<br>Grow Smarter.
+                    </h1>
+                    <p class="text-lg text-gray-400 mb-8 leading-relaxed">
+                        Discover premium digital products designed to accelerate your creative journey. From AI tools to design assets, everything you need to succeed as a creator.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="btn-primary" onclick="scrollToSection('products')">
+                            <i class="fas fa-shopping-bag mr-2"></i>Start Shopping
+                        </button>
+                        <button class="btn-secondary" onclick="scrollToSection('stats')">
+                            <i class="fas fa-arrow-right mr-2"></i>Learn More
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Right side - Featured Product Card -->
+                <div class="animate-fade-in" style="animation-delay: 0.2s;">
+                    <div class="relative">
+                        <div class="absolute inset-0 bg-gradient-to-r from-blue-600 to-purple-600 rounded-2xl blur-3xl opacity-30 animate-glow"></div>
+                        <div class="relative product-card p-6">
+                            <img 
+                                src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=500&fit=crop" 
+                                alt="Featured Product" 
+                                class="w-full h-64 object-cover rounded-lg mb-4"
+                            >
+                            <h3 class="text-xl font-bold mb-2">1000 ChatGPT Prompts</h3>
+                            <p class="text-gray-400 text-sm mb-4">Master AI-powered content creation with our comprehensive prompt collection.</p>
+                            <div class="flex items-center justify-between">
+                                <span class="text-2xl font-bold gradient-text">$19</span>
+                                <button class="btn-primary px-4 py-2 text-sm" onclick="addToCart(0)">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                            <div class="mt-3">
+                                <span class="badge badge-bestseller">
+                                    <i class="fas fa-star mr-1"></i>Bestseller
+                                </span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Category Filters -->
+    <section class="py-12 border-b border-blue-900/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl font-bold mb-8">Browse by Category</h2>
+            <div class="flex flex-wrap gap-3">
+                <button class="category-filter active" onclick="filterByCategory('All')">All Products</button>
+                <button class="category-filter" onclick="filterByCategory('AI Tools')">
+                    <i class="fas fa-robot mr-2"></i>AI Tools
+                </button>
+                <button class="category-filter" onclick="filterByCategory('Design Assets')">
+                    <i class="fas fa-palette mr-2"></i>Design Assets
+                </button>
+                <button class="category-filter" onclick="filterByCategory('Templates')">
+                    <i class="fas fa-file mr-2"></i>Templates
+                </button>
+                <button class="category-filter" onclick="filterByCategory('Creator Resources')">
+                    <i class="fas fa-users mr-2"></i>Creator Resources
+                </button>
+                <button class="category-filter" onclick="filterByCategory('E-books')">
+                    <i class="fas fa-book mr-2"></i>E-books
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Products Grid -->
+    <section id="products" class="py-20 border-b border-blue-900/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-12 gradient-text">Featured Products</h2>
+            
+            <!-- No results message -->
+            <div id="noResults" class="text-center py-12 hidden">
+                <i class="fas fa-search text-4xl text-gray-500 mb-4"></i>
+                <p class="text-gray-400 text-lg">No products found matching your search.</p>
+            </div>
+
+            <!-- Products Grid -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="productsGrid">
+                <!-- Products will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Best Sellers Section -->
+    <section class="py-20 bg-gradient-to-b from-purple-900/10 to-transparent border-b border-blue-900/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-12 gradient-text">
+                <i class="fas fa-fire text-red-500 mr-2"></i>Best Sellers
+            </h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6" id="bestSellersGrid">
+                <!-- Best sellers will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="stats" class="py-20 border-b border-blue-900/20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-2xl md:text-3xl font-bold mb-16 text-center gradient-text">Why Choose CreatorHub?</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Stat 1 -->
+                <div class="glass rounded-xl p-8 text-center transform hover:scale-105 transition duration-300 animate-fade-in">
+                    <i class="fas fa-box text-4xl gradient-text mb-4"></i>
+                    <div class="stat-number" id="stat1">500+</div>
+                    <p class="text-gray-400 mt-2">Premium Products</p>
+                </div>
+
+                <!-- Stat 2 -->
+                <div class="glass rounded-xl p-8 text-center transform hover:scale-105 transition duration-300 animate-fade-in" style="animation-delay: 0.1s;">
+                    <i class="fas fa-users text-4xl gradient-text mb-4"></i>
+                    <div class="stat-number" id="stat2">50K+</div>
+                    <p class="text-gray-400 mt-2">Happy Creators</p>
+                </div>
+
+                <!-- Stat 3 -->
+                <div class="glass rounded-xl p-8 text-center transform hover:scale-105 transition duration-300 animate-fade-in" style="animation-delay: 0.2s;">
+                    <i class="fas fa-lightning-bolt text-4xl gradient-text mb-4"></i>
+                    <div class="stat-number" id="stat3">1M+</div>
+                    <p class="text-gray-400 mt-2">Instant Downloads</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <div class="glass rounded-xl p-12 border-2 border-blue-500/30 animate-glow">
+                <h2 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">Ready to Level Up?</h2>
+                <p class="text-gray-400 text-lg mb-8">Join thousands of creators who are already using CreatorHub to accelerate their growth.</p>
+                <button class="btn-primary text-lg px-8 py-3" onclick="scrollToSection('products')">
+                    <i class="fas fa-crown mr-2"></i>Explore Products
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="border-t border-blue-900/20 py-12 bg-gradient-to-b from-transparent to-blue-900/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="font-bold mb-4 gradient-text">CreatorHub</h3>
+                    <p class="text-gray-400 text-sm">Empowering creators with premium digital products.</p>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Product</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-blue-400 transition">Browse All</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Best Sellers</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">New Releases</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Company</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-blue-400 transition">About Us</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Blog</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold mb-4">Legal</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm">
+                        <li><a href="#" class="hover:text-blue-400 transition">Privacy Policy</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Terms of Service</a></li>
+                        <li><a href="#" class="hover:text-blue-400 transition">Refund Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-blue-900/20 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-500 text-sm mb-4 md:mb-0">&copy; 2024 CreatorHub. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="#" class="text-gray-500 hover:text-blue-400 transition"><i class="fab fa-twitter"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-blue-400 transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-blue-400 transition"><i class="fab fa-youtube"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-blue-400 transition"><i class="fab fa-linkedin"></i></a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Cart Sidebar -->
+    <div class="cart-sidebar hidden animate-slide-in" id="cartSidebar">
+        <!-- Close button -->
+        <div class="flex items-center justify-between p-6 border-b border-blue-900/20">
+            <h2 class="text-xl font-bold">Shopping Cart</h2>
+            <button onclick="toggleCart()" class="text-2xl cursor-pointer hover:text-blue-400 transition">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <!-- Cart items -->
+        <div class="flex-1 overflow-y-auto p-6" id="cartItems">
+            <div class="text-center text-gray-400">
+                <i class="fas fa-shopping-bag text-4xl mb-4 opacity-50"></i>
+                <p>Your cart is empty</p>
+            </div>
+        </div>
+
+        <!-- Cart footer -->
+        <div class="border-t border-blue-900/20 p-6">
+            <div class="flex justify-between items-center mb-4 text-lg font-bold">
+                <span>Total:</span>
+                <span class="gradient-text" id="cartTotal">$0.00</span>
+            </div>
+            <button class="btn-primary w-full mb-2" onclick="proceedToCheckout()">
+                <i class="fas fa-lock mr-2"></i>Checkout
+            </button>
+            <button class="btn-secondary w-full" onclick="toggleCart()">Continue Shopping</button>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkoutModal">
+        <div class="modal">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold">Checkout</h2>
+                <button onclick="closeCheckout()" class="text-2xl cursor-pointer">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <form onsubmit="submitCheckout(event)">
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-2">Full Name</label>
+                    <input type="text" placeholder="John Doe" class="form-input" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-2">Email Address</label>
+                    <input type="email" placeholder="john@example.com" class="form-input" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-2">Delivery Address</label>
+                    <input type="text" placeholder="123 Main Street, City, State 12345" class="form-input" required>
+                </div>
+
+                <div class="mb-4">
+                    <label class="block text-sm font-semibold mb-2">Card Number</label>
+                    <input type="text" placeholder="1234 5678 9012 3456" class="form-input" maxlength="19" required>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4 mb-6">
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Expiry Date</label>
+                        <input type="text" placeholder="MM/YY" class="form-input" maxlength="5" required>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">CVV</label>
+                        <input type="text" placeholder="123" class="form-input" maxlength="3" required>
+                    </div>
+                </div>
+
+                <div class="bg-blue-900/20 rounded-lg p-4 mb-6 border border-blue-900/40">
+                    <p class="text-sm text-gray-300">
+                        <i class="fas fa-info-circle text-blue-400 mr-2"></i>
+                        This is a demo checkout. No actual charges will be made.
+                    </p>
+                </div>
+
+                <button type="submit" class="btn-primary w-full mb-2">
+                    <i class="fas fa-check mr-2"></i>Complete Purchase
+                </button>
+                <button type="button" class="btn-secondary w-full" onclick="closeCheckout()">Cancel</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Products Data
+        const products = [
+            {
+                id: 1,
+                name: "1000 ChatGPT Prompts",
+                price: 19,
+                category: "AI Tools",
+                rating: 4.9,
+                isBestSeller: true,
+                image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=500&h=500&fit=crop",
+                description: "Master AI-powered content creation with our comprehensive prompt collection"
+            },
+            {
+                id: 2,
+                name: "YouTube Thumbnail Mega Pack",
+                price: 29,
+                category: "Design Assets",
+                rating: 4.8,
+                isBestSeller: true,
+                image: "https://images.unsplash.com/photo-1611532736597-de2d4265fba3?w=500&h=500&fit=crop",
+                description: "100+ professionally designed thumbnail templates for maximum click-through rates"
+            },
+            {
+                id: 3,
+                name: "Faceless YouTube Kit",
+                price: 39,
+                category: "Creator Resources",
+                rating: 4.7,
+                isBestSeller: false,
+                image: "https://images.unsplash.com/photo-1574375927938-d5a98e8ffe85?w=500&h=500&fit=crop",
+                description: "Complete guide to starting a faceless YouTube channel from scratch"
+            },
+            {
+                id: 4,
+                name: "Ultimate Notion Workspace",
+                price: 24,
+                category: "Templates",
+                rating: 4.9,
+                isBestSeller: true,
+                image: "https://images.unsplash.com/photo-1487215078519-e21cc028cb29?w=500&h=500&fit=crop",
+                description: "Pre-built Notion workspace with database templates and automation"
+            },
+            {
+                id: 5,
+                name: "Canva Social Media Bundle",
+                price: 34,
+                category: "Templates",
+                rating: 4.6,
+                isBestSeller: false,
+                image: "https://images.unsplash.com/photo-1618788149185-a9a3efadb1a3?w=500&h=500&fit=crop",
+                description: "1000+ editable Canva templates for all social media platforms"
+            },
+            {
+                id: 6,
+                name: "AI Prompt Bundle (Advanced)",
+                price: 49,
+                category: "AI Tools",
+                rating: 5.0,
+                isBestSeller: true,
+                image: "https://images.unsplash.com/photo-1677442d019cecf8b13f1629b3e45dfd?w=500&h=500&fit=crop",
+                description: "Advanced prompt engineering techniques for all major AI platforms"
+            },
+            {
+                id: 7,
+                name: "YouTube Growth Kit",
+                price: 45,
+                category: "Creator Resources",
+                rating: 4.8,
+                isBestSeller: true,
+                image: "https://images.unsplash.com/photo-1519389950473-47ba0277781c?w=500&h=500&fit=crop",
+                description: "Strategies, scripts, and tools to grow your YouTube channel to 10K subscribers"
+            },
+            {
+                id: 8,
+                name: "Video Editing Presets Pro",
+                price: 27,
+                category: "Design Assets",
+                rating: 4.7,
+                isBestSeller: false,
+                image: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=500&h=500&fit=crop",
+                description: "500+ DaVinci Resolve presets for professional video editing"
+            },
+            {
+                id: 9,
+                name: "E-Book: Creator Monetization",
+                price: 15,
+                category: "E-books",
+                rating: 4.5,
+                isBestSeller: false,
+                image: "https://images.unsplash.com/photo-1507842217343-583f20270319?w=500&h=500&fit=crop",
+                description: "Complete guide to monetizing your creative content across 10+ platforms"
+            },
+            {
+                id: 10,
+                name: "Social Media Content Pack",
+                price: 31,
+                category: "Creator Resources",
+                rating: 4.8,
+                isBestSeller: false,
+                image: "https://images.unsplash.com/photo-1611162616513-d6f5c75ce306?w=500&h=500&fit=crop",
+                description: "365 days of ready-to-post social media content templates"
+            }
+        ];
+
+        // State
+        let cart = [];
+        let wishlist = [];
+        let currentCategory = 'All';
+        let currentSearch = '';
+
+        // Initialize
+        function init() {
+            loadCart();
+            loadWishlist();
+            renderProducts();
+            renderBestSellers();
+            animateStats();
+        }
+
+        // Cart Management
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId + 1);
+            const existingItem = cart.find(item => item.id === product.id);
+
+            if (existingItem) {
+                existingItem.quantity++;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+
+            saveCart();
+            updateCartUI();
+            showToast(`✅ ${product.name} added to cart!`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+            updateCartUI();
+        }
+
+        function updateQuantity(productId, quantity) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = Math.max(1, quantity);
+                saveCart();
+                updateCartUI();
+            }
+        }
+
+        function saveCart() {
+            localStorage.setItem('cart', JSON.stringify(cart));
+        }
+
+        function loadCart() {
+            const saved = localStorage.getItem('cart');
+            cart = saved ? JSON.parse(saved) : [];
+            updateCartUI();
+        }
+
+        function updateCartUI() {
+            const badge = document.getElementById('cartBadge');
+            const itemsContainer = document.getElementById('cartItems');
+            const total = document.getElementById('cartTotal');
+
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            const totalPrice = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+
+            if (totalItems > 0) {
+                badge.style.display = 'flex';
+                badge.textContent = totalItems;
+            } else {
+                badge.style.display = 'none';
+            }
+
+            total.textContent = `$${totalPrice.toFixed(2)}`;
+
+            if (cart.length === 0) {
+                itemsContainer.innerHTML = `
+                    <div class="text-center text-gray-400">
+                        <i class="fas fa-shopping-bag text-4xl mb-4 opacity-50"></i>
+                        <p>Your cart is empty</p>
+                    </div>
+                `;
+            } else {
+                itemsContainer.innerHTML = cart.map(item => `
+                    <div class="flex items-center gap-4 mb-4 pb-4 border-b border-blue-900/20">
+                        <img src="${item.image}" alt="${item.name}" class="w-16 h-16 object-cover rounded-lg">
+                        <div class="flex-1">
+                            <h4 class="font-semibold text-sm">${item.name}</h4>
+                            <p class="text-blue-400 text-sm font-bold">$${item.price}</p>
+                        </div>
+                        <div class="flex items-center gap-2">
+                            <button onclick="updateQuantity(${item.id}, ${item.quantity - 1})" class="w-6 h-6 bg-dark-bg rounded text-center leading-6 hover:bg-blue-900 transition text-sm">−</button>
+                            <span class="w-6 text-center">${item.quantity}</span>
+                            <button onclick="updateQuantity(${item.id}, ${item.quantity + 1})" class="w-6 h-6 bg-dark-bg rounded text-center leading-6 hover:bg-blue-900 transition text-sm">+</button>
+                        </div>
+                        <button onclick="removeFromCart(${item.id})" class="text-red-500 hover:text-red-400 transition text-sm">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function toggleCart() {
+            const sidebar = document.getElementById('cartSidebar');
+            sidebar.classList.toggle('hidden');
+            if (!sidebar.classList.contains('hidden')) {
+                sidebar.classList.add('animate-slide-in');
+            }
+        }
+
+        // Wishlist Management
+        function addToWishlist(productId) {
+            const product = products.find(p => p.id === productId + 1);
+            if (!wishlist.find(item => item.id === product.id)) {
+                wishlist.push(product);
+                saveWishlist();
+                updateWishlistUI();
+                showToast(`❤️ Added to wishlist!`);
+            }
+        }
+
+        function removeFromWishlist(productId) {
+            wishlist = wishlist.filter(item => item.id !== productId);
+            saveWishlist();
+            updateWishlistUI();
+        }
+
+        function saveWishlist() {
+            localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        }
+
+        function loadWishlist() {
+            const saved = localStorage.getItem('wishlist');
+            wishlist = saved ? JSON.parse(saved) : [];
+            updateWishlistUI();
+        }
+
+        function updateWishlistUI() {
+            const badge = document.getElementById('wishlistBadge');
+            if (wishlist.length > 0) {
+                badge.style.display = 'flex';
+                badge.textContent = wishlist.length;
+            } else {
+                badge.style.display = 'none';
+            }
+        }
+
+        function toggleWishlist() {
+            showToast(`❤️ Wishlist (${wishlist.length} items)`);
+        }
+
+        // Product Rendering
+        function renderProducts() {
+            let filtered = products;
+
+            if (currentCategory !== 'All') {
+                filtered = filtered.filter(p => p.category === currentCategory);
+            }
+
+            if (currentSearch) {
+                filtered = filtered.filter(p => p.name.toLowerCase().includes(currentSearch.toLowerCase()));
+            }
+
+            const grid = document.getElementById('productsGrid');
+            const noResults = document.getElementById('noResults');
+
+            if (filtered.length === 0) {
+                grid.innerHTML = '';
+                noResults.classList.remove('hidden');
+            } else {
+                noResults.classList.add('hidden');
+                grid.innerHTML = filtered.map((product, index) => `
+                    <div class="product-card">
+                        <div class="relative overflow-hidden">
+                            <img src="${product.image}" alt="${product.name}" class="product-image w-full">
+                            <button 
+                                onclick="addToWishlist(${product.id - 1})" 
+                                class="absolute top-3 right-3 bg-dark-secondary/80 p-2 rounded-lg hover:bg-red-500 transition"
+                            >
+                                <i class="fas fa-heart text-white"></i>
+                            </button>
+                            ${product.isBestSeller ? '<div class="absolute top-3 left-3"><span class="badge badge-bestseller"><i class="fas fa-fire mr-1"></i>Bestseller</span></div>' : ''}
+                        </div>
+                        <div class="p-4 flex flex-col flex-1">
+                            <h3 class="font-bold mb-1 line-clamp-2">${product.name}</h3>
+                            <p class="text-gray-400 text-sm mb-2 line-clamp-2">${product.description}</p>
+                            <div class="flex items-center gap-1 mb-3">
+                                <div class="flex text-yellow-400">
+                                    ${Array(5).fill().map((_, i) => `<i class="fas fa-star text-xs"></i>`).join('')}
+                                </div>
+                                <span class="text-gray-400 text-xs">${product.rating}</span>
+                            </div>
+                            <div class="flex items-center justify-between mt-auto pt-3 border-t border-blue-900/20">
+                                <span class="text-lg font-bold gradient-text">$${product.price}</span>
+                                <button onclick="addToCart(${product.id - 1})" class="btn-primary px-3 py-2 text-sm">
+                                    <i class="fas fa-plus"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                `).join('');
+            }
+        }
+
+        function renderBestSellers() {
+            const bestSellers = products.filter(p => p.isBestSeller);
+            const grid = document.getElementById('bestSellersGrid');
+            grid.innerHTML = bestSellers.map((product, index) => `
+                <div class="product-card" style="animation-delay: ${index * 0.1}s">
+                    <div class="relative overflow-hidden">
+                        <img src="${product.image}" alt="${product.name}" class="product-image w-full">
+                        <button 
+                            onclick="addToWishlist(${product.id - 1})" 
+                            class="absolute top-3 right-3 bg-dark-secondary/80 p-2 rounded-lg hover:bg-red-500 transition"
+                        >
+                            <i class="fas fa-heart text-white"></i>
+                        </button>
+                        <div class="absolute top-3 left-3"><span class="badge badge-bestseller"><i class="fas fa-fire mr-1"></i>Bestseller</span></div>
+                    </div>
+                    <div class="p-4 flex flex-col flex-1">
+                        <h3 class="font-bold mb-1 line-clamp-2">${product.name}</h3>
+                        <p class="text-gray-400 text-sm mb-2 line-clamp-2">${product.description}</p>
+                        <div class="flex items-center gap-1 mb-3">
+                            <div class="flex text-yellow-400">
+                                ${Array(5).fill().map((_, i) => `<i class="fas fa-star text-xs"></i>`).join('')}
+                            </div>
+                            <span class="text-gray-400 text-xs">${product.rating}</span>
+                        </div>
+                        <div class="flex items-center justify-between mt-auto pt-3 border-t border-blue-900/20">
+                            <span class="text-lg font-bold gradient-text">$${product.price}</span>
+                            <button onclick="addToCart(${product.id - 1})" class="btn-primary px-3 py-2 text-sm">
+                                <i class="fas fa-plus"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Filtering
+        function filterByCategory(category) {
+            currentCategory = category;
+            currentSearch = '';
+            document.getElementById('searchInput').value = '';
+            
+            document.querySelectorAll('.category-filter').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.closest('.category-filter').classList.add('active');
+            
+            renderProducts();
+        }
+
+        function filterProducts() {
+            currentSearch = document.getElementById('searchInput').value;
+            if (currentSearch) {
+                currentCategory = 'All';
+            }
+            renderProducts();
+        }
+
+        // Checkout
+        function proceedToCheckout() {
+            if (cart.length === 0) {
+                showToast('❌ Your cart is empty!');
+                return;
+            }
+            document.getElementById('checkoutModal').classList.add('active');
+        }
+
+        function closeCheckout() {
+            document.getElementById('checkoutModal').classList.remove('active');
+        }
+
+        function submitCheckout(e) {
+            e.preventDefault();
+            const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0).toFixed(2);
+            
+            setTimeout(() => {
+                alert(`🎉 Order Complete!\n\nOrder Value: $${total}\n\nYour digital products will be delivered to your email immediately.\n\nThank you for shopping at CreatorHub!`);
+                cart = [];
+                saveCart();
+                updateCartUI();
+                closeCheckout();
+                toggleCart();
+                showToast('✅ Order placed successfully!');
+            }, 800);
+        }
+
+        // Toast notifications
+        function showToast(message) {
+            const container = document.body;
+            const toast = document.createElement('div');
+            toast.className = 'toast';
+            toast.textContent = message;
+            container.appendChild(toast);
+
+            setTimeout(() => {
+                toast.classList.add('remove');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Statistics Animation
+        function animateStats() {
+            const stats = [
+                { element: document.getElementById('stat1'), target: 500 },
+                { element: document.getElementById('stat2'), target: 50000 },
+                { element: document.getElementById('stat3'), target: 1000000 }
+            ];
+
+            const observerOptions = {
+                threshold: 0.5
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const stat = stats.find(s => s.element === entry.target);
+                        if (stat) {
+                            animateCount(stat.element, 0, stat.target, 2000);
+                            observer.unobserve(entry.target);
+                        }
+                    }
+                });
+            }, observerOptions);
+
+            stats.forEach(stat => observer.observe(stat.element));
+        }
+
+        function animateCount(element, start, end, duration) {
+            const range = end - start;
+            const increment = end > 1000 ? range / 100 : range / 50;
+            let current = start;
+
+            const timer = setInterval(() => {
+                current += increment;
+                if (current >= end) {
+                    current = end;
+                    clearInterval(timer);
+                }
+
+                if (end > 1000) {
+                    element.textContent = (Math.floor(current / 1000)) + 'K+';
+                } else {
+                    element.textContent = Math.floor(current) + '+';
+                }
+            }, duration / 50);
+        }
+
+        // Utility Functions
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            element?.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function toggleMobileMenu() {
+            // Mobile menu functionality can be extended
+            showToast('📱 Mobile menu');
+        }
+
+        // Initialize on load
+        window.addEventListener('load', init);
+    </script>
+</body>
+</html>
